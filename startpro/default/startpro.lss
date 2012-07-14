@@ -1,0 +1,232 @@
+
+startpro.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000ee  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000040  00800060  000000ee  00000162  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .debug_aranges 00000020  00000000  00000000  000001a2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_pubnames 0000002d  00000000  00000000  000001c2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_info   0000028c  00000000  00000000  000001ef  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_abbrev 0000014a  00000000  00000000  0000047b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_line   0000019e  00000000  00000000  000005c5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_frame  00000030  00000000  00000000  00000764  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_str    000000ca  00000000  00000000  00000794  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_loc    0000006b  00000000  00000000  0000085e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_ranges 00000048  00000000  00000000  000008c9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	24 c0       	rjmp	.+72     	; 0x4c <__bad_interrupt>
+   4:	23 c0       	rjmp	.+70     	; 0x4c <__bad_interrupt>
+   6:	22 c0       	rjmp	.+68     	; 0x4c <__bad_interrupt>
+   8:	21 c0       	rjmp	.+66     	; 0x4c <__bad_interrupt>
+   a:	20 c0       	rjmp	.+64     	; 0x4c <__bad_interrupt>
+   c:	1f c0       	rjmp	.+62     	; 0x4c <__bad_interrupt>
+   e:	1e c0       	rjmp	.+60     	; 0x4c <__bad_interrupt>
+  10:	1d c0       	rjmp	.+58     	; 0x4c <__bad_interrupt>
+  12:	1c c0       	rjmp	.+56     	; 0x4c <__bad_interrupt>
+  14:	1b c0       	rjmp	.+54     	; 0x4c <__bad_interrupt>
+  16:	1a c0       	rjmp	.+52     	; 0x4c <__bad_interrupt>
+  18:	19 c0       	rjmp	.+50     	; 0x4c <__bad_interrupt>
+  1a:	18 c0       	rjmp	.+48     	; 0x4c <__bad_interrupt>
+  1c:	17 c0       	rjmp	.+46     	; 0x4c <__bad_interrupt>
+  1e:	16 c0       	rjmp	.+44     	; 0x4c <__bad_interrupt>
+  20:	15 c0       	rjmp	.+42     	; 0x4c <__bad_interrupt>
+  22:	14 c0       	rjmp	.+40     	; 0x4c <__bad_interrupt>
+  24:	13 c0       	rjmp	.+38     	; 0x4c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	ee ee       	ldi	r30, 0xEE	; 238
+  3a:	f0 e0       	ldi	r31, 0x00	; 0
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <.do_copy_data_start>
+
+0000003e <.do_copy_data_loop>:
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+
+00000042 <.do_copy_data_start>:
+  42:	a0 3a       	cpi	r26, 0xA0	; 160
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <.do_copy_data_loop>
+  48:	14 d0       	rcall	.+40     	; 0x72 <main>
+  4a:	4f c0       	rjmp	.+158    	; 0xea <_exit>
+
+0000004c <__bad_interrupt>:
+  4c:	d9 cf       	rjmp	.-78     	; 0x0 <__vectors>
+
+0000004e <ledon>:
+				   {56,57,58,59,60,61,62,63},
+				   				   };
+void ledon(uint8_t i,uint8_t j)
+{
+	
+	PORTC=led[i][j];
+  4e:	e8 2f       	mov	r30, r24
+  50:	f0 e0       	ldi	r31, 0x00	; 0
+  52:	83 e0       	ldi	r24, 0x03	; 3
+  54:	ee 0f       	add	r30, r30
+  56:	ff 1f       	adc	r31, r31
+  58:	8a 95       	dec	r24
+  5a:	e1 f7       	brne	.-8      	; 0x54 <ledon+0x6>
+  5c:	e6 0f       	add	r30, r22
+  5e:	f1 1d       	adc	r31, r1
+  60:	e0 5a       	subi	r30, 0xA0	; 160
+  62:	ff 4f       	sbci	r31, 0xFF	; 255
+  64:	80 81       	ld	r24, Z
+  66:	85 bb       	out	0x15, r24	; 21
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+  68:	88 ea       	ldi	r24, 0xA8	; 168
+  6a:	91 e6       	ldi	r25, 0x61	; 97
+  6c:	01 97       	sbiw	r24, 0x01	; 1
+  6e:	f1 f7       	brne	.-4      	; 0x6c <ledon+0x1e>
+	_delay_ms(100);
+	
+}
+  70:	08 95       	ret
+
+00000072 <main>:
+int main()				
+{
+uint8_t row=4,col=7;
+uint8_t i=1,j=-1;
+DDRC =0xff;
+  72:	8f ef       	ldi	r24, 0xFF	; 255
+  74:	84 bb       	out	0x14, r24	; 20
+  76:	34 e0       	ldi	r19, 0x04	; 4
+  78:	27 e0       	ldi	r18, 0x07	; 7
+  7a:	51 e0       	ldi	r21, 0x01	; 1
+  7c:	4f ef       	ldi	r20, 0xFF	; 255
+  7e:	68 ea       	ldi	r22, 0xA8	; 168
+  80:	71 e6       	ldi	r23, 0x61	; 97
+				   {56,57,58,59,60,61,62,63},
+				   				   };
+void ledon(uint8_t i,uint8_t j)
+{
+	
+	PORTC=led[i][j];
+  82:	e3 2f       	mov	r30, r19
+  84:	f0 e0       	ldi	r31, 0x00	; 0
+  86:	a3 e0       	ldi	r26, 0x03	; 3
+  88:	ee 0f       	add	r30, r30
+  8a:	ff 1f       	adc	r31, r31
+  8c:	aa 95       	dec	r26
+  8e:	e1 f7       	brne	.-8      	; 0x88 <main+0x16>
+  90:	e2 0f       	add	r30, r18
+  92:	f1 1d       	adc	r31, r1
+  94:	e0 5a       	subi	r30, 0xA0	; 160
+  96:	ff 4f       	sbci	r31, 0xFF	; 255
+  98:	80 81       	ld	r24, Z
+  9a:	85 bb       	out	0x15, r24	; 21
+  9c:	cb 01       	movw	r24, r22
+  9e:	01 97       	sbiw	r24, 0x01	; 1
+  a0:	f1 f7       	brne	.-4      	; 0x9e <main+0x2c>
+uint8_t i=1,j=-1;
+DDRC =0xff;
+while(1){
+ledon(row,col); //INTIAL POSTION
+_delay_ms(100);
+row=row+i;
+  a2:	cb 01       	movw	r24, r22
+  a4:	01 97       	sbiw	r24, 0x01	; 1
+  a6:	f1 f7       	brne	.-4      	; 0xa4 <main+0x32>
+  a8:	35 0f       	add	r19, r21
+col=col+j;
+  aa:	24 0f       	add	r18, r20
+				   {56,57,58,59,60,61,62,63},
+				   				   };
+void ledon(uint8_t i,uint8_t j)
+{
+	
+	PORTC=led[i][j];
+  ac:	e3 2f       	mov	r30, r19
+  ae:	f0 e0       	ldi	r31, 0x00	; 0
+  b0:	93 e0       	ldi	r25, 0x03	; 3
+  b2:	ee 0f       	add	r30, r30
+  b4:	ff 1f       	adc	r31, r31
+  b6:	9a 95       	dec	r25
+  b8:	e1 f7       	brne	.-8      	; 0xb2 <main+0x40>
+  ba:	e2 0f       	add	r30, r18
+  bc:	f1 1d       	adc	r31, r1
+  be:	e0 5a       	subi	r30, 0xA0	; 160
+  c0:	ff 4f       	sbci	r31, 0xFF	; 255
+  c2:	80 81       	ld	r24, Z
+  c4:	85 bb       	out	0x15, r24	; 21
+  c6:	cb 01       	movw	r24, r22
+  c8:	01 97       	sbiw	r24, 0x01	; 1
+  ca:	f1 f7       	brne	.-4      	; 0xc8 <main+0x56>
+ledon(row,col); //INTIAL POSTION
+_delay_ms(100);
+row=row+i;
+col=col+j;
+ledon(row,col);
+if(row==7)              //last row
+  cc:	37 30       	cpi	r19, 0x07	; 7
+  ce:	11 f0       	breq	.+4      	; 0xd4 <main+0x62>
+	//i=-1;
+	
+	row=7;
+	i=-i;
+	}
+if(row==0)				//ist row
+  d0:	33 23       	and	r19, r19
+  d2:	09 f4       	brne	.+2      	; 0xd6 <main+0x64>
+	{
+	row=0;
+	i=-i;
+  d4:	51 95       	neg	r21
+	}
+if(col==0)
+  d6:	22 23       	and	r18, r18
+  d8:	19 f4       	brne	.+6      	; 0xe0 <main+0x6e>
+	{
+	col=1;
+	j=-j;	
+  da:	41 95       	neg	r20
+  dc:	21 e0       	ldi	r18, 0x01	; 1
+  de:	d1 cf       	rjmp	.-94     	; 0x82 <main+0x10>
+	}
+if(col==7)
+  e0:	27 30       	cpi	r18, 0x07	; 7
+  e2:	79 f6       	brne	.-98     	; 0x82 <main+0x10>
+	{
+	col=6;
+	j=-j;	
+  e4:	41 95       	neg	r20
+  e6:	26 e0       	ldi	r18, 0x06	; 6
+  e8:	cc cf       	rjmp	.-104    	; 0x82 <main+0x10>
+
+000000ea <_exit>:
+  ea:	f8 94       	cli
+
+000000ec <__stop_program>:
+  ec:	ff cf       	rjmp	.-2      	; 0xec <__stop_program>

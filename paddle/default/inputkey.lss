@@ -1,0 +1,228 @@
+
+inputkey.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000118  00000000  00000000  00000094  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000008  00800060  00000118  000001ac  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000000  00800068  00000120  000001b4  2**0
+                  ALLOC
+  3 .noinit       00000000  00800068  00800068  000001b4  2**0
+                  CONTENTS
+  4 .eeprom       00000000  00810000  00810000  000001b4  2**0
+                  CONTENTS
+  5 .debug_aranges 00000014  00000000  00000000  000001b4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_pubnames 00000023  00000000  00000000  000001c8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_info   000001c0  00000000  00000000  000001eb  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_abbrev 000000ec  00000000  00000000  000003ab  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_line   00000151  00000000  00000000  00000497  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000000c7  00000000  00000000  000005e8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54
+   4:	0c 94 45 00 	jmp	0x8a
+   8:	0c 94 45 00 	jmp	0x8a
+   c:	0c 94 45 00 	jmp	0x8a
+  10:	0c 94 45 00 	jmp	0x8a
+  14:	0c 94 45 00 	jmp	0x8a
+  18:	0c 94 45 00 	jmp	0x8a
+  1c:	0c 94 45 00 	jmp	0x8a
+  20:	0c 94 45 00 	jmp	0x8a
+  24:	0c 94 45 00 	jmp	0x8a
+  28:	0c 94 45 00 	jmp	0x8a
+  2c:	0c 94 45 00 	jmp	0x8a
+  30:	0c 94 45 00 	jmp	0x8a
+  34:	0c 94 45 00 	jmp	0x8a
+  38:	0c 94 45 00 	jmp	0x8a
+  3c:	0c 94 45 00 	jmp	0x8a
+  40:	0c 94 45 00 	jmp	0x8a
+  44:	0c 94 45 00 	jmp	0x8a
+  48:	0c 94 45 00 	jmp	0x8a
+  4c:	0c 94 45 00 	jmp	0x8a
+  50:	0c 94 45 00 	jmp	0x8a
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	e8 e1       	ldi	r30, 0x18	; 24
+  68:	f1 e0       	ldi	r31, 0x01	; 1
+  6a:	02 c0       	rjmp	.+4      	; 0x70
+
+0000006c <.do_copy_data_loop>:
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+
+00000070 <.do_copy_data_start>:
+  70:	a8 36       	cpi	r26, 0x68	; 104
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c
+
+00000076 <__do_clear_bss>:
+  76:	10 e0       	ldi	r17, 0x00	; 0
+  78:	a8 e6       	ldi	r26, 0x68	; 104
+  7a:	b0 e0       	ldi	r27, 0x00	; 0
+  7c:	01 c0       	rjmp	.+2      	; 0x80
+
+0000007e <.do_clear_bss_loop>:
+  7e:	1d 92       	st	X+, r1
+
+00000080 <.do_clear_bss_start>:
+  80:	a8 36       	cpi	r26, 0x68	; 104
+  82:	b1 07       	cpc	r27, r17
+  84:	e1 f7       	brne	.-8      	; 0x7e
+  86:	0c 94 47 00 	jmp	0x8e
+
+0000008a <__bad_interrupt>:
+  8a:	0c 94 00 00 	jmp	0x0
+
+0000008e <main>:
+#include<avr/io.h>
+volatile uint8_t led[7]={192,96,48,24,12,6,3};
+int main(void)
+
+{
+  8e:	ce e5       	ldi	r28, 0x5E	; 94
+  90:	d4 e0       	ldi	r29, 0x04	; 4
+  92:	de bf       	out	0x3e, r29	; 62
+  94:	cd bf       	out	0x3d, r28	; 61
+
+volatile uint8_t i=3;
+  96:	83 e0       	ldi	r24, 0x03	; 3
+  98:	89 83       	std	Y+1, r24	; 0x01
+DDRD=0xFC;   // PORTD_0 declared as input
+  9a:	8c ef       	ldi	r24, 0xFC	; 252
+  9c:	81 bb       	out	0x11, r24	; 17
+
+DDRA=0xFF; //PORTA is declared as output
+  9e:	2f ef       	ldi	r18, 0xFF	; 255
+  a0:	2a bb       	out	0x1a, r18	; 26
+PORTA=0XFF;
+  a2:	2b bb       	out	0x1b, r18	; 27
+	double __tmp = ((F_CPU) / 4e3) * __ms;
+	if (__tmp < 1.0)
+		__ticks = 1;
+	else if (__tmp > 65535)
+		__ticks = 0;	/* i.e. 65536 */
+  a4:	80 e0       	ldi	r24, 0x00	; 0
+  a6:	90 e0       	ldi	r25, 0x00	; 0
+  a8:	01 97       	sbiw	r24, 0x01	; 1
+  aa:	f1 f7       	brne	.-4      	; 0xa8
+_delay_ms(6000);
+PORTA=0x00; // initially LED off
+  ac:	1b ba       	out	0x1b, r1	; 27
+
+PORTD=0xFF;  // Internal pullup is enabled
+  ae:	22 bb       	out	0x12, r18	; 18
+PORTA=led[3];
+  b0:	80 91 63 00 	lds	r24, 0x0063
+  b4:	8b bb       	out	0x1b, r24	; 27
+  b6:	75 e0       	ldi	r23, 0x05	; 5
+  b8:	28 ea       	ldi	r18, 0xA8	; 168
+  ba:	31 e6       	ldi	r19, 0x61	; 97
+  bc:	40 e0       	ldi	r20, 0x00	; 0
+  be:	50 e0       	ldi	r21, 0x00	; 0
+  c0:	61 e0       	ldi	r22, 0x01	; 1
+while(1==1)  // infinite loop
+
+{
+
+if(!(PIND & 0x01))  // check whether the switch is pressed or not
+  c2:	80 99       	sbic	0x10, 0	; 16
+  c4:	13 c0       	rjmp	.+38     	; 0xec
+
+{
+
+while(!(PIND & 0x01)); //wait for debounce
+  c6:	80 9b       	sbis	0x10, 0	; 16
+  c8:	fe cf       	rjmp	.-4      	; 0xc6
+
+//PORTA=(1<<1);    // LED on
+
+
+i++;
+  ca:	89 81       	ldd	r24, Y+1	; 0x01
+  cc:	8f 5f       	subi	r24, 0xFF	; 255
+  ce:	89 83       	std	Y+1, r24	; 0x01
+PORTA=led[i];
+  d0:	89 81       	ldd	r24, Y+1	; 0x01
+  d2:	e8 2f       	mov	r30, r24
+  d4:	ff 27       	eor	r31, r31
+  d6:	e0 5a       	subi	r30, 0xA0	; 160
+  d8:	ff 4f       	sbci	r31, 0xFF	; 255
+  da:	80 81       	ld	r24, Z
+  dc:	8b bb       	out	0x1b, r24	; 27
+if(i==6)
+  de:	89 81       	ldd	r24, Y+1	; 0x01
+  e0:	86 30       	cpi	r24, 0x06	; 6
+  e2:	09 f4       	brne	.+2      	; 0xe6
+i=5;
+  e4:	79 83       	std	Y+1, r23	; 0x01
+ */
+static __inline__ void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+  e6:	c9 01       	movw	r24, r18
+  e8:	01 97       	sbiw	r24, 0x01	; 1
+  ea:	f1 f7       	brne	.-4      	; 0xe8
+_delay_ms(100);   // On for a half second
+
+//PORTA=0x00;    // LED turns off
+}  // if ends here
+if(!(PIND & 0x02))  // check whether the switch is pressed or not
+  ec:	81 99       	sbic	0x10, 1	; 16
+  ee:	e9 cf       	rjmp	.-46     	; 0xc2
+
+{
+
+while(!(PIND & 0x02)); //wait for debounce
+  f0:	81 9b       	sbis	0x10, 1	; 16
+  f2:	fe cf       	rjmp	.-4      	; 0xf0
+
+//PORTA=(1<<0);    // LED on
+
+i--;
+  f4:	89 81       	ldd	r24, Y+1	; 0x01
+  f6:	81 50       	subi	r24, 0x01	; 1
+  f8:	89 83       	std	Y+1, r24	; 0x01
+PORTA=led[i];
+  fa:	89 81       	ldd	r24, Y+1	; 0x01
+  fc:	e8 2f       	mov	r30, r24
+  fe:	ff 27       	eor	r31, r31
+ 100:	e0 5a       	subi	r30, 0xA0	; 160
+ 102:	ff 4f       	sbci	r31, 0xFF	; 255
+ 104:	80 81       	ld	r24, Z
+ 106:	8b bb       	out	0x1b, r24	; 27
+if(i==0)
+ 108:	89 81       	ldd	r24, Y+1	; 0x01
+ 10a:	88 23       	and	r24, r24
+ 10c:	09 f4       	brne	.+2      	; 0x110
+i=1;
+ 10e:	69 83       	std	Y+1, r22	; 0x01
+ */
+static __inline__ void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+ 110:	c9 01       	movw	r24, r18
+ 112:	01 97       	sbiw	r24, 0x01	; 1
+ 114:	f1 f7       	brne	.-4      	; 0x112
+ 116:	d5 cf       	rjmp	.-86     	; 0xc2
